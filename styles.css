@@ -245,7 +245,18 @@ body {
 }
 
 
-@media (max-width: 768px) {
+
+
+@media only screen and (max-width: 600px) {
+    .custom-box {
+        padding: 2vh 4vw;
+        margin: 1.5vh;
+        min-width: 85vw;
+		max-width: 85vw;
+    }
+    .try-button {
+        max-width: 40%;
+    }
     .ratio-container {
         flex-direction: column;
     }
@@ -267,17 +278,6 @@ body {
     .terminal-container button {
         width: 100%;
         margin-bottom: 10px;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .custom-box {
-        padding: 2vh 4vw;
-        margin: 4vh;
-        min-width: 90vw;
-    }
-    .try-button {
-        max-width: 40%;
     }
 }
 
