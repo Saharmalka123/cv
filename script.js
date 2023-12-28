@@ -52,7 +52,7 @@ const apiDataset = {
             "method": "POST",
             "functionName": "KeepInTouch",
             "functionDesc": "Post the attendee your interest",
-			"bodyDefaultText":"Ss"
+			"bodyDefaultText":'"email": "example@email.com"'
 			
         },
     ]
@@ -100,86 +100,99 @@ function updateTerminalParams(terminalId, paramName, value) {
         ] = value;
     }
 }
+function updateTerminalBody(terminalId, value) {
+    if (!terminalBody[terminalId
+    ]) {
+        terminalBody[terminalId
+        ] = {};
+    }
 
+    if (value === "") {
+        // If it's the default value, remove the parameter
+        delete terminalBody[terminalId
+        ];
+    } else {
+        // Otherwise, update the parameter value
+        terminalBody[terminalId] = value;
+    }
+}
 
 function createTerminals(apiDataset) {
     const terminalsContainer = document.getElementById('terminals');
 
     apiDataset.functions.forEach((func, index) => {
         const terminalId = 'terminal-' + index;
-		  terminalParams[terminalId
-        ] = {}; 
+        terminalParams[terminalId] = {};
         const url = apiDataset.baseUrl + '/' + func.functionName;
-		
-		   let dropdownsHtml = '';
-		   let terminalBodyHtml = '';
-		   if (func.bodyDefaultText) {
+
+        let dropdownsHtml = '';
+        let terminalBodyHtml = '';
+
+        if (func.bodyDefaultText) {
             terminalBodyHtml = `
-                <textarea id="${terminalId}-body" class="terminal-body-input">
-                    ${func.bodyDefaultText}
-                </textarea>
+                <textarea id="${terminalId}-body" class="terminal-body-input">{${'\n'}${'\t'}${func.bodyDefaultText}${'\n'}}</textarea>
             `;
+			
         }
-			let bodyTitle 
-		   let parametersTitleHtml =  `<h3 class="parametersBody-title">          </h3>`;
-		   if (func.params && func.params.length > 0)
-		   parametersTitleHtml = `<h3 class="parametersBody-title">Parameters</h3>`
-			else if(func.bodyDefaultText)
-			parametersTitleHtml =`<h3 class="parametersBody-title">Body</h3>`
-			else{}
-                              
-                          
-		        if (func.params && func.params.length > 0) {
-		            func.params.forEach(param => {
-    dropdownsHtml += `<div class="parameter-container">`;
-    dropdownsHtml += `<label for="${terminalId}-param-${param.key}">${param.key
-                }</label>`;
-    dropdownsHtml += `<select id="${terminalId}-param-${param.key}" onchange = "updateTerminalParams('${terminalId}', '${param.key}', this.value)">`;
-    dropdownsHtml += `<option value="">Select ${param.key
-                }</option>`;
-    param.values.forEach(value => {
-        dropdownsHtml += `<option value="${value}">${value
-                    }</option>`;
+
+        let parametersTitleHtml = '<h3 class="parametersBody-title"></h3>';
+        if (func.params && func.params.length > 0) {
+            parametersTitleHtml = '<h3 class="parametersBody-title">Parameters</h3>';
+        } else if (func.bodyDefaultText) {
+            parametersTitleHtml = '<h3 class="parametersBody-title">Body</h3>';
+        }
+
+        if (func.params && func.params.length > 0) {
+            func.params.forEach(param => {
+                dropdownsHtml += `<div class="parameter-container">`;
+                dropdownsHtml += `<label for="${terminalId}-param-${param.key}">${param.key}</label>`;
+                dropdownsHtml += `<select id="${terminalId}-param-${param.key}" onchange="updateTerminalParams('${terminalId}', '${param.key}', this.value)">`;
+                dropdownsHtml += `<option value="">Select ${param.key}</option>`;
+
+                param.values.forEach(value => {
+                    dropdownsHtml += `<option value="${value}">${value}</option>`;
                 });
-    dropdownsHtml += `</select>`;
-    dropdownsHtml += `</div>`;
+
+                dropdownsHtml += `</select>`;
+                dropdownsHtml += `</div>`;
             });
         }
-				
+
         let paramString = JSON.stringify(func.params || []).replace(/"/g, "&quot;");
         terminalsContainer.innerHTML += `
-              <div class="custom-box">
-				<div class="content">
-					<h3>
-				<div class="styled-text">
-				<span class="bold"> ${func.method
-        } </span>
-				<span class="regular"> ${func.functionName
-        }</span>
-				<span class="italic">${func.functionDesc
-        }</span>
-				</div>
-				</h3>
-            </div>
-            <div class="more-content">
-			<div class="parameters-header">
-			${parametersTitleHtml
-        }
-			<button class="try-button" onclick="fetchData('${url}', '${func.method}', '${terminalId}')">Try it out</button>
-			</div>
-				${dropdownsHtml}
-				${terminalBodyHtml}
+            <div class="custom-box">
+                <div class="content">
+                    <h3>
+                        <div class="styled-text">
+                            <span class="bold">${func.method}</span>
+                            <span class="regular">${func.functionName}</span>
+                            <span class="italic">${func.functionDesc}</span>
+                        </div>
+                    </h3>
+                </div>
+                <div class="more-content">
+                    <div class="parameters-header">
+                        ${parametersTitleHtml}
+                        <button class="try-button" onclick="fetchData('${url}', '${func.method}', '${terminalId}')">Try it out</button>
+                    </div>
+                    ${dropdownsHtml}
+                    ${terminalBodyHtml}
                     <div id="${terminalId}" class="terminal"></div>
+                </div>
             </div>
-        </div>
         `;
-   if (func.params && func.params.length > 0) {
+
+        if (func.params && func.params.length > 0) {
             func.params.forEach(param => {
-                document.getElementById(`${terminalId
-                }-param-${param.key
-                }`).addEventListener('change', function() {
+                document.getElementById(`${terminalId}-param-${param.key}`).addEventListener('change', function() {
                     updateTerminalParams(terminalId, param.key, this.value);
                 });
+            });
+        }
+
+        if (func.bodyDefaultText) {
+            document.getElementById(`${terminalId}-body`).addEventListener('input', function() {
+                updateTerminalBody(`${terminalId}-body`, this.value);
             });
         }
     });
@@ -210,8 +223,10 @@ function fetchData(url, method, terminalId) {
     if (method === 'POST' ) {
         requestOptions.headers['Content-Type'
         ] = 'application/json';
-        requestOptions.body = JSON.stringify({});
-		console.log(requestOptions); //Object.fromEntries(params.map(param => [param.name, param.value])));
+		const requestBody = terminalBody[`${terminalId}-body`];
+        if (requestBody) {
+            requestOptions.body = JSON.stringify({ body: requestBody });
+        }
     }
     // Clear the terminal content
     terminal.innerHTML = '<pre>' + 'Fetching data...' + '</pre>';

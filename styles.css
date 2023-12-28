@@ -27,9 +27,11 @@ body {
 }
 
 .terminal-body-input {
+	
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 10px;
+	min-height: 70px;
     width: 100%;
     box-sizing: border-box;
     transition: background-color 0.3s, color 0.3s;
