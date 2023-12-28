@@ -274,7 +274,7 @@ body {
     .custom-box {
         padding: 2vh 4vw;
         margin: 4vh;
-        max-width: 90vw;
+        min-width: 90vw;
     }
     .try-button {
         max-width: 40%;
