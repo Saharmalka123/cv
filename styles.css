@@ -1,0 +1,302 @@
+:root {
+    --background-color-light: #ffffff;
+    --text-color-light: #5D5A8E;
+    --background-color-dark: #191826;
+    --text-color-dark: #ffffff;
+    --color1-light: #AAA6DB;
+    --color1-dark: #73738d;
+    --border-color: var(--color1-light); 
+    --box-color-dark: #222134;
+    --box-color-light: #f2f2f9;
+    --button-color-dark: #ece9ff;
+    --button-text-color-dark: #191826;
+    --button-text-color-light: #ece9ff; 
+    --bold-text-color: var(--button-text-color-light); 
+    --button-hoover: #ffffff;
+}
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.terminal-body-input {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+	resize: none;
+}
+
+.boxes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    width: 100%; 
+    background-color: transparent; 
+    padding: 20px; 
+    box-sizing: border-box;
+}
+
+.custom-box {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1vw; 
+    margin: 1vh; 
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-box .content {
+    /* Styles for the always visible content */
+}
+
+.custom-box .more-content {
+    display: none; 
+}
+
+.custom-box.expanded .more-content {
+    display: block; 
+}
+
+.custom-box.expanded {
+    cursor: default; 
+    padding-bottom: 2vh;
+}
+
+.terminal-container {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    margin: 10px;
+}
+
+.terminal-container .terminal {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 15px;
+    overflow-y: auto;
+    height: 250px;
+    font-size: 0.95em;
+}
+
+.terminal-container button {
+    display: block;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 200px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.styled-text {
+    display: inline;
+}
+
+.styled-text span {
+    display: inline;
+    padding: 2px 4px;
+    border-radius: 5px;
+    font-size: inherit;
+}
+
+.bold {
+    font-weight: bold;
+    background-color: var(--bold-text-color);
+}
+
+.regular {
+    font-weight: normal;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.terminal-container button:hover {
+    background-color: var(--button-hoover);
+}
+
+/* Dropdown and Title Styling */
+.parameter-container {
+    margin-bottom: 15px;
+}
+
+.parameter-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color-light);
+}
+
+.parameter-container select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    box-sizing: border-box;
+}
+
+.parameter-container select:focus {
+    outline: none;
+    border-color: var(--color1-light);
+}
+
+.parameters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.parametersBody-title {
+    font-weight: bold;
+    margin: 0;
+}
+
+.try-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-color-dark);
+    color: var(--button-text-color-dark);
+    cursor: pointer;
+    font-size: 1em;
+}
+
+/* Media Queries */
+@media (prefers-color-scheme: light) {
+    :root {
+        --border-color: var(--color1-light);
+        --bold-text-color: var(--button-text-color-light);
+    }
+    .terminal-container {
+        background-color: var(--box-color-light);
+        color: var(--text-color-light);
+    }
+    .terminal-container .terminal {
+        background-color: var(--background-color-light);
+        color: var(--text-color-light);
+    }
+    .terminal-container button {
+        background-color: var(--button-color-dark);
+        color: var(--button-text-color-dark);
+    }
+	.terminal-body-input {
+        background-color: var(--background-color-light);
+        color: var(--text-color-light);
+        border-color: var(--color1-light);
+    }
+
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+    }
+    :root {
+        --border-color: var(--color1-dark);
+        --bold-text-color: var(--button-text-color-dark);
+    }
+    .terminal-container {
+        background-color: var(--box-color-dark);
+        color: var(--text-color-dark);
+    }
+    .terminal-container .terminal {
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+    }
+    .terminal-container button {
+        background-color: var(--button-color-dark);
+        color: var(--button-text-color-dark);
+    }
+    .parameter-container label {
+        color: var(--text-color-dark); /* Corrected color for parameter titles */
+    }
+    .parameter-container select {
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark); /* Corrected dropdown text color */
+        border-color: var(--border-color); /* Optional: Adjust border color if needed */
+    }
+	.terminal-body-input {
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+        border-color: var(--color1-dark);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .ratio-container {
+        flex-direction: column;
+    }
+    .terminal-container {
+        width: auto;
+        margin: 10px 0;
+    }
+    .terminal-container .terminal {
+        border: 1px solid #ddd;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 15px;
+        overflow-y: auto;
+        height: 250px;
+        font-size: 0.95em;
+    }
+    .terminal-container button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .custom-box {
+        padding: 2vh 4vw;
+        margin: 4vh;
+        max-width: 90vw;
+    }
+    .try-button {
+        max-width: 40%;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .custom-box {
+        padding: 0vh 1.5vw;
+        margin: 3vh;
+        max-width: 100vw;
+    }
+    .try-button {
+        max-width: 40%;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .custom-box {
+        padding: 0vh 1vw;
+        margin: 0.5vh;
+        max-width: 100vw;
+    }
+    .try-button {
+        max-width: 100%;
+    }
+}
