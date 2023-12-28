@@ -247,7 +247,7 @@ body {
 
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
     .custom-box {
         padding: 2vh 4vw;
         margin: 1.5vh;
@@ -281,7 +281,7 @@ body {
     }
 }
 
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
     .custom-box {
         padding: 0vh 1.5vw;
         margin: 3vh;
