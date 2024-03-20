@@ -54,13 +54,6 @@ const apiDataset = {
             "functionDesc": "Post the attendee your interest",
 			"bodyDefaultText":'"email": "example@email.com"'
 			
-        },
-	{
-            "method": "POST",
-            "functionName": "",
-            "functionDesc": "Post the attendee your interest",
-			"bodyDefaultText":'"email": "example@email.com"'
-			
         }
     ]
 };
