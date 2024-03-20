@@ -1,5 +1,5 @@
 const apiDataset = {
-    "baseUrl": "https://ef5c33ad-8a36-4651-8378-ab4add8db245.mock.pstmn.io",
+    "baseUrl": "https://584343a167a74238b6e49d10ec8d84f9.flow.pstmn.io",
     "functions": [
         {
             "method": "GET",
@@ -55,6 +55,13 @@ const apiDataset = {
 			"bodyDefaultText":'"email": "example@email.com"'
 			
         },
+	{
+            "method": "POST",
+            "functionName": "",
+            "functionDesc": "Post the attendee your interest",
+			"bodyDefaultText":'"email": "example@email.com"'
+			
+        }
     ]
 };
 
