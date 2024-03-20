@@ -54,7 +54,7 @@ const apiDataset = {
             "functionDesc": "Post the attendee your interest",
 			"bodyDefaultText":'"email": "example@email.com"'
 			
-        }
+        },
     ]
 };
 
@@ -230,9 +230,7 @@ function fetchData(url, method, terminalId) {
     }
     // Clear the terminal content
     terminal.innerHTML = '<pre>' + 'Fetching data...' + '</pre>';
-console.log("url: ", url)
-	
-console.log("request options: ",requestOptions )
+
     fetch(url, requestOptions)
     .then(response => {
         if (!response.ok) {
